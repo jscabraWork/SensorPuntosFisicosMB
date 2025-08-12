@@ -23,13 +23,7 @@ export class PuntosFisicosDataService extends CommonDataService<PuntoFisico>{
   //Obtiene la lista de eventos no terminados del promotor
   //Ademas trae el objeto promotor
   getEventosActivos(numeroDocumento: string): Observable<any> {
-    return this.http.get<any>(`${this.endpointEventos}/activos-promotor/${numeroDocumento}`);
-  }
-
-  //Obtiene la lista de eventos terminados del promotor
-  //Ademas trae el objeto promotor
-  getEventosHistorial(numeroDocumento: string): Observable<any> {
-    return this.http.get<any>(`${this.endpointEventos}/historial-promotor/${numeroDocumento}`);
+    return this.http.get<any>(`${this.endpointEventos}/activos/${numeroDocumento}`);
   }
 
   //-- MÉTODOS VENTAS Y RESERVAS --//

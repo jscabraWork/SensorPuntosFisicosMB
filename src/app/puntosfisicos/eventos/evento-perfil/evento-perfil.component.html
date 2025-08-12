@@ -1,1 +1,92 @@
-<p>evento-perfil works!</p>
+<div class="vender-container" *ngIf="!cargando">
+  <!-- Header del Evento -->
+  <div class="evento-header" *ngIf="evento">
+    <div class="evento-info">
+      <h1 class="evento-titulo">{{evento.nombre}}</h1>
+      <div class="evento-pulep">{{evento.pulep}}</div>
+      <div class="evento-datos">
+        <div class="dato-item">
+          <img src="assets/vector/icons/artistas.svg" class="dato-icon" alt="Artistas">
+          <span>{{evento.artistas}}</span>
+        </div>
+        <div class="dato-item">
+          <img src="assets/vector/icons/city.svg" class="dato-icon" alt="Ciudad">
+          <span>{{evento.venue?.ciudad?.nombre}}</span>
+        </div>
+        <div class="dato-item">
+          <img src="assets/vector/icons/location.svg" class="dato-icon" alt="Lugar">
+          <span>{{evento.venue?.nombre}}</span>
+        </div>
+        <div class="dato-item">
+          <img src="assets/vector/icons/date.svg" class="dato-icon" alt="Fecha">
+          <span>{{evento.fechaApertura | date:'dd/MM/yyyy HH:mm'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="evento-imagen" *ngIf="evento.imagenes && evento.imagenes.length > 0">
+      <img [src]="evento.imagenes[0].url" [alt]="evento.nombre" />
+    </div>
+  </div>
+
+  <!-- Formulario de Cliente -->
+  <div class="cliente-section">
+    <h3 class="section-title">Información del Cliente</h3>
+    
+    <div class="cliente-busqueda" *ngIf="!clienteSeleccionado">
+      <div class="busqueda-form">
+        <div class="input-group">
+          <input 
+            type="text" 
+            [(ngModel)]="cedula" 
+            placeholder="Número de cédula"
+            class="input-busqueda"
+            (keyup.enter)="buscarCliente()">
+          <input 
+            type="email" 
+            [(ngModel)]="correo" 
+            placeholder="Correo electrónico"
+            class="input-busqueda"
+            (keyup.enter)="buscarCliente()">
+          <button 
+            class="btn-buscar" 
+            (click)="buscarCliente()"
+            [disabled]="(!cedula && !correo) || buscandoCliente">
+            {{buscandoCliente ? 'Buscando...' : 'Buscar'}}
+          </button>
+        </div>
+        <p class="busqueda-hint">Ingresa el número de cédula o correo electrónico del cliente</p>
+      </div>
+    </div>
+
+    <div class="cliente-info" *ngIf="clienteSeleccionado">
+      <div class="cliente-datos">
+        <div class="dato-cliente">
+          <strong>Nombre:</strong> {{clienteSeleccionado.nombre}}
+        </div>
+        <div class="dato-cliente">
+          <strong>Documento:</strong> {{clienteSeleccionado.tipo_documento}} {{clienteSeleccionado.numeroDocumento}}
+        </div>
+        <div class="dato-cliente">
+          <strong>Correo:</strong> {{clienteSeleccionado.correo}}
+        </div>
+        <div class="dato-cliente">
+          <strong>Celular:</strong> {{clienteSeleccionado.celular}}
+        </div>
+      </div>
+      <button class="btn-cambiar-cliente" (click)="cambiarCliente()">
+        Cambiar Cliente
+      </button>
+    </div>
+  </div>
+
+  <!-- Componente de Selección de Localidad -->
+  <app-seleccion-localidad 
+    [dias]="dias"
+    (reservar)="onComprar($event)">
+  </app-seleccion-localidad>
+</div>
+
+<!-- Loading Spinner -->
+<div class="spinner-overlay" *ngIf="cargando">
+  <div class="spinner"></div>
+</div>

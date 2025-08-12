@@ -60,7 +60,7 @@ export class EventosComponent implements OnInit, OnDestroy {
   }
 
   private getNumeroDocumentoFromRoute(): string | null {
-    return this.route.parent?.snapshot.paramMap.get('idPromotor') || null;
+    return this.route.parent?.snapshot.paramMap.get('idPunto') || null;
   }
 
   getImagenPrincipal(evento: Evento): string | null {

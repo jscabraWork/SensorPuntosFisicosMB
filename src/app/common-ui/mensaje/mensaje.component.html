@@ -1,33 +1,21 @@
-<dialog #dialogRef class="message-card" 
-        role="dialog" 
-        aria-labelledby="dialog-title" 
-        aria-describedby="dialog-content">
-  
-  <form method="dialog">
-    <header class="message-header">
-      <h4 id="dialog-title" class="message-title">Mensaje</h4>
-      <button type="button" (click)="cerrar()" aria-label="Cerrar diálogo">×</button>
-    </header>
-    
-    <div class="message-body">
-      <p id="dialog-content" class="message-content">{{mensaje}}</p>
+<section class="message-card">
+  <div class="message-header">
+    <h4 class="message-title">Mensaje</h4>
+    <div class="message-divider"></div>
+  </div>
+  <div class="message-body">
+    <p class="message-content">{{mensaje}}</p>
 
-      <input *ngIf="mostrarInputNumero" 
-             type="number" 
-             [(ngModel)]="numeroInput" 
-             placeholder="Ingrese un número"
-             class="input-number"
-             name="numero"
-             aria-label="Número requerido" />
+    <input *ngIf="mostrarInputNumero" type="number" [(ngModel)]="numeroInput" placeholder="Ingrese un número"
+      class="input-number" />
 
-      <div class="botones" *ngIf="mostrarBotones">
-        <button type="button" class="message-action" mat-button (click)="confirmar()">Sí</button>
-        <button type="button" class="message-action" mat-button (click)="cancelar()">No</button>
-      </div>
-
-      <div class="botones" *ngIf="!mostrarBotones">
-        <button type="button" class="message-action" mat-button (click)="cerrar()">Cerrar</button>
-      </div>
+    <div class="botones" *ngIf="mostrarBotones">
+      <button class="message-action" mat-button (click)="confirmar()">Sí</button>
+      <button class="message-action" mat-button (click)="cancelar()">No</button>
     </div>
-  </form>
-</dialog>
+
+    <div class="botones" *ngIf="!mostrarBotones">
+      <button class="message-action" mat-button (click)="cerrar()">Cerrar</button>
+    </div>
+  </div>
+</section>

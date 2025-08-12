@@ -1,0 +1,63 @@
+<!-- Selección de Localidades -->
+<div class="localidades-section">
+  <h3 class="section-title">Selecciona tu localidad y cantidad</h3>
+  
+  <div class="localidades-lista">
+    <div 
+      *ngFor="let localidad of getLocalidadesUnicas()" 
+      class="localidad-item"
+      [class.selected]="getCantidad(localidad.nombre) > 0">
+      
+      <div class="localidad-info">
+        <div class="localidad-main">
+          <div class="localidad-header">
+            <h4 class="localidad-nombre">{{localidad.nombre}}</h4>
+            <span class="localidad-descripcion">{{localidad.descripcion}} • {{localidad.dias.length}} día(s)</span>
+          </div>
+        </div>
+        <div class="precio-info">
+          <span class="precio-total">${{localidad.precioTotal | number}}</span>
+        </div>
+        <!-- Selector de cantidad por item -->
+        <div class="cantidad-selector">
+          <button 
+            class="btn-cantidad"
+            (click)="ajustarCantidad(localidad.nombre, -1)"
+            [disabled]="getCantidad(localidad.nombre) <= 0">
+            -
+          </button>
+          <span class="cantidad-display">{{getCantidad(localidad.nombre)}}</span>
+          <button 
+            class="btn-cantidad"
+            (click)="ajustarCantidad(localidad.nombre, 1)"
+            [disabled]="getCantidad(localidad.nombre) >= 7 || (getCantidadTotal() > 0 && getCantidad(localidad.nombre) === 0)">
+            +
+          </button>
+        </div>
+      </div>
+
+      <!-- Detalle de días separado -->
+      <div class="dias-detalle">
+        <div class="dia-item" *ngFor="let diaInfo of localidad.dias">
+          <span class="dia-fecha">{{diaInfo.dia.fechaInicio | date:'longDate'}}</span>
+          <span class="dia-hora">{{diaInfo.dia.horaInicio + " - " + diaInfo.dia.horaFin}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resumen de Compra -->
+<div class="resumen-compra" *ngIf="getCantidadTotal() > 0">
+  <div class="resumen-content">
+    <div class="resumen-info">
+      <span class="resumen-cantidad">{{getCantidadTotal()}} boleta(s) - {{getLocalidadSeleccionada()?.nombre}} ({{getLocalidadSeleccionada()?.dias.length}} día(s))</span>
+      <span class="resumen-total">Total: ${{calcularTotalGeneral() | number}}</span>
+    </div>
+    <button 
+      class="btn-reservar" 
+      (click)="onReservar()">
+      COMPRAR
+    </button>
+  </div>
+</div>

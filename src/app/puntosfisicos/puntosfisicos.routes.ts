@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PuntosfisicosComponent } from './puntosfisicos.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { EventoPerfilComponent } from './eventos/evento-perfil/evento-perfil.component';
+import { CarritoComponent } from './eventos/evento-perfil/carrito/carrito.component';
 
 export const puntosfisicosRoutes: Routes = [
   {
@@ -17,12 +18,12 @@ export const puntosfisicosRoutes: Routes = [
         component: EventoPerfilComponent
       },
       {
-        path: 'historial',
+        path: 'perfil',
         component: EventosComponent
       },
       {
-        path: 'perfil',
-        component: EventosComponent
+        path: 'eventos/carrito/:ordenId',
+        component: CarritoComponent
       },
       { path: '', redirectTo: 'eventos', pathMatch: 'full' },
     ]

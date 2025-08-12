@@ -65,7 +65,6 @@ export abstract class BaseComponent implements OnInit {
     const dialogRef = this.dialog.open(MensajeComponent, {
       width: '500px',
       maxWidth: '80vw',
-      height: '250px',
       data: {
         mensaje: mensajeTexto,
         mostrarBotones: confirmacion

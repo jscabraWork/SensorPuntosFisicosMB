@@ -1,0 +1,127 @@
+<main class="carrito-container" *ngIf="!cargando" role="main" aria-label="Carrito de compras">
+  <!-- Header del Carrito -->
+  <header class="carrito-header">
+    <h1 class="carrito-titulo">Carrito de Compras</h1>
+    <div class="carrito-orden-info" role="status" aria-label="Información de la orden">
+      <span class="orden-numero">Orden #{{orden.id}}</span>
+    </div>
+  </header>
+
+  <!-- Información del Evento -->
+  <section class="evento-info-section" *ngIf="evento" aria-labelledby="evento-titulo">
+    <article class="evento-card">
+      <div class="evento-imagen" *ngIf="evento.imagenes && evento.imagenes.length > 0">
+        <img [src]="evento.imagenes[0].url" [alt]="'Imagen del evento ' + evento.nombre" />
+      </div>
+      <div class="evento-detalles">
+        <h2 id="evento-titulo" class="evento-nombre">{{evento.nombre}}</h2>
+        <div class="evento-datos">
+          <div class="dato-item">
+            <img src="assets/vector/icons/location.svg" class="dato-icon" alt="">
+            <span>{{evento.venue?.nombre}}</span>
+          </div>
+          <div class="dato-item">
+            <img src="assets/vector/icons/city.svg" class="dato-icon" alt="">
+            <span>{{evento.venue?.ciudad?.nombre}}</span>
+          </div>
+          <div class="dato-item">
+            <img src="assets/vector/icons/date.svg" class="dato-icon" alt="">
+            <span>
+              <time [dateTime]="evento.fechaApertura">
+                {{evento.fechaApertura | date:'dd/MM/yyyy HH:mm'}}
+              </time>
+            </span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Información del Cliente -->
+  <section class="cliente-section" *ngIf="cliente" aria-labelledby="cliente-titulo">
+    <article class="cliente-card">
+      <h3 id="cliente-titulo" class="cliente-titulo">Información del Cliente</h3>
+      <div class="cliente-info">
+        <div class="cliente-dato">
+          <span class="cliente-label">Documento:</span>
+          <span class="cliente-valor">{{cliente.numeroDocumento}}</span>
+        </div>
+        <div class="cliente-dato">
+          <span class="cliente-label">Nombre:</span>
+          <span class="cliente-valor">{{cliente.nombre}}</span>
+        </div>
+        <div class="cliente-dato">
+          <span class="cliente-label">Correo:</span>
+          <span class="cliente-valor">{{cliente.correo}}</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Información de la Localidad -->
+  <section class="localidad-section" *ngIf="localidad" aria-labelledby="localidad-titulo">
+    <article class="localidad-card">
+      <h3 id="localidad-titulo" class="localidad-titulo">Localidad Seleccionada</h3>
+      <div class="localidad-info">
+        <div class="localidad-nombre">{{localidad.nombre}}</div>
+        <div class="localidad-descripcion">{{localidad.descripcion}}</div>
+        <div class="cantidad-tickets">Cantidad: {{tickets.length}} boleta(s)</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Resumen de Compra -->
+  <section class="resumen-section" aria-labelledby="resumen-titulo">
+    <article class="resumen-card">
+      <h3 id="resumen-titulo" class="resumen-titulo">Resumen de tu compra</h3>
+      
+      <div class="descripcion-orden" *ngIf="orden.descripcion">
+        <p>{{orden.descripcion}}</p>
+      </div>
+      
+      <table class="resumen-lineas" role="table" aria-label="Desglose de costos">
+        <tbody>
+          <tr class="resumen-linea">
+            <td class="concepto">Boletas ({{tickets.length}})</td>
+            <td class="valor">{{calcularTotalTickets() | currency:'COP':'symbol':'1.0-0'}}</td>
+          </tr>
+          
+          <tr class="resumen-linea total">
+            <th class="concepto" scope="row">Total a pagar</th>
+            <td class="valor">{{valorTotal | currency:'COP':'symbol':'1.0-0'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+
+  <!-- Botones de Acción -->
+  <section class="acciones-section" role="group" aria-label="Acciones de la orden">
+    <button 
+      class="btn-pagar" 
+      type="button"
+      (click)="ptp()"
+      [disabled]="pagar"
+      [attr.aria-describedby]="pagar ? 'procesando-pago' : null">
+      {{pagar ? 'Procesando...' : 'Proceder al Pago'}}
+    </button>
+    
+    <button 
+      class="btn-cancelar" 
+      type="button"
+      (click)="cancelarOrden()"
+      [disabled]="pagar"
+      aria-label="Cancelar esta orden de compra">
+      Cancelar Orden
+    </button>
+    
+    <div id="procesando-pago" class="sr-only" *ngIf="pagar">
+      El pago se está procesando, por favor espere.
+    </div>
+  </section>
+</main>
+
+<!-- Loading Spinner -->
+<div class="spinner-overlay" *ngIf="cargando">
+  <div class="spinner"></div>
+</div>
