@@ -28,7 +28,7 @@ export class CarritoComponent extends BaseComponent {
   localidad: Localidad | null = null;
   pagar: boolean = false;
   cliente: Cliente = new Cliente();
-  
+
   override pathVariableName = 'ordenId';
 
   constructor(
@@ -65,7 +65,7 @@ export class CarritoComponent extends BaseComponent {
 
   handleResponse(response: any): void {
     this.orden = response.orden;
-    
+
     if (this.orden.estado !== 3) {
       this.mostrarError("No tienes ninguna orden de compra pendiente");
       this.router.navigate(['/puntosfisicos/eventos']);
@@ -81,7 +81,7 @@ export class CarritoComponent extends BaseComponent {
 
   ptp(): void {
     if (this.pagar) return;
-    
+
     const dialogRef = this.dialog.open(MetodoPagoModalComponent, {
       width: '500px',
       disableClose: true,
@@ -117,7 +117,7 @@ export class CarritoComponent extends BaseComponent {
     this.confirmar('¿Estás seguro de que deseas cancelar esta orden?').subscribe(confirmado => {
       if (confirmado) {
         this.iniciarCarga();
-        
+
         this.service.cancelar(this.orden.id).subscribe({
           next: () => {
                     this.pagar = false;

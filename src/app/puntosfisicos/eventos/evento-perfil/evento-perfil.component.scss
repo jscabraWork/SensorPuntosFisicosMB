@@ -25,11 +25,12 @@
   font-family: v.$font-secondary;
   font-size: 2rem;
   font-weight: 800;
+  color: v.$color-negro;
 }
 
 .evento-pulep {
   font-size: 0.9rem;
-  color: v.$color-secundario;
+  color: v.$color-negro-soft;
   font-weight: 700;
   margin-bottom: v.$spacer-2;
 }
@@ -112,8 +113,7 @@
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid v.$color-gris;
-  border-top: 4px solid v.$color-base;
+  border-top: 4px solid v.$color-primario-dark;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -126,9 +126,9 @@
 // Cliente Section
 .cliente-section {
   margin-bottom: v.$spacer-5;
-  border: 1px solid v.$color-gris;
+  border: 1px solid v.$color-primario;
   border-radius: v.$border-radius;
-  background: v.$color-blanco;
+  background: v.$color-negro;
   padding: v.$spacer-4;
 }
 
@@ -136,7 +136,7 @@
   font-family: v.$font-secondary;
   font-size: 1.3rem;
   font-weight: 600;
-  color: v.$color-base;
+  color: v.$color-primario;
   margin-bottom: v.$spacer-3;
 }
 
@@ -150,7 +150,7 @@
   display: flex;
   gap: v.$spacer-2;
   align-items: center;
-  
+
   @include m.for-mobile-down {
     flex-direction: column;
     align-items: stretch;
@@ -160,10 +160,10 @@
 .input-busqueda {
   flex: 1;
   padding: v.$spacer-2;
-  border: 1px solid v.$color-gris;
+  border: 1px solid v.$color-primario-light;
   border-radius: v.$border-radius;
   font-size: 1rem;
-  
+
   &:focus {
     outline: none;
     border-color: v.$color-base;
@@ -171,8 +171,8 @@
 }
 
 .btn-buscar {
-  background: v.$color-base;
-  color: v.$color-blanco;
+  background: v.$color-primario;
+  color: v.$color-negro;
   border: none;
   padding: v.$spacer-2 v.$spacer-4;
   border-radius: v.$border-radius;
@@ -180,13 +180,13 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  
+
   &:hover:not(:disabled) {
-    background: darken(v.$color-base, 10%);
+    background: darken(v.$color-primario-light, 10%);
   }
-  
+
   &:disabled {
-    background: v.$color-contraste;
+    background: v.$color-primario-dark;
     cursor: not-allowed;
     opacity: 0.7;
   }
@@ -194,7 +194,7 @@
 
 .busqueda-hint {
   font-size: 0.85rem;
-  color: v.$color-contraste;
+  color: v.$color-gris-muy-light;
   margin: 0;
 }
 
@@ -203,7 +203,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: v.$spacer-4;
-  
+
   @include m.for-mobile-down {
     flex-direction: column;
     align-items: stretch;
@@ -219,18 +219,18 @@
 
 .dato-cliente {
   padding: v.$spacer-2;
-  background: lighten(v.$color-gris, 5%);
+  background: lighten(v.$color-gris-muy-light, 5%);
   border-radius: v.$border-radius;
   font-size: 0.9rem;
-  
+
   strong {
-    color: v.$color-base;
+    color: v.$color-negro;
   }
 }
 
 .btn-cambiar-cliente {
-  background: transparent;
-  color: v.$color-base;
+  background: v.$color-primario;
+  color: v.$color-negro;
   border: 1px solid v.$color-base;
   padding: v.$spacer-2 v.$spacer-3;
   border-radius: v.$border-radius;
@@ -238,9 +238,9 @@
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.2s ease;
-  
+
   &:hover {
-    background: v.$color-base;
-    color: v.$color-blanco;
+    background: v.$color-primario-light;
+    color: v.$color-negro;
   }
 }

@@ -14,7 +14,7 @@
   left: 0;
   right: 0;
   height: v.$topbar-height;
-  background: v.$color-gris;
+  background: v.$color-negro;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,18 +23,18 @@
 }
 
 .top-logo {
-  height: 40px;
+  height: 32px;
 }
 
 .logout-btn {
   padding: 8px;
   border-radius: v.$border-radius;
   transition: background 0.2s;
-  
+
   &:hover {
-    background: v.$color-contraste;
+    background: v.$color-primario-light;
   }
-  
+
   img {
     @extend %icon-style;
   }
@@ -47,14 +47,14 @@
   left: 0;
   width: v.$sidebar-width;
   height: calc(100vh - #{v.$topbar-height});
-  background: v.$color-gris;
+  background: v.$color-negro;
   transition: width v.$transition-duration ease;
   z-index: map-get(v.$z-index, "sidebar");
-  
+
   &.collapsed {
     width: v.$sidebar-width-collapsed;
   }
-  
+
   &.mobile {
     top: 0;
     height: v.$mobile-header-height;
@@ -69,12 +69,12 @@
   justify-content: space-between;
   padding: 24px 16px;
   border-bottom: 3px solid v.$color-contraste;
-  
+
   .sidebar.collapsed:not(.mobile) & {
     justify-content: center;
     .logo-icon { display: none; }
   }
-  
+
   .sidebar.mobile & {
     padding: 0 16px;
     border: none;
@@ -83,8 +83,7 @@
 }
 
 .logo-icon {
-  height: 40px;
-  border-radius: 100%;
+  height: 30px;
 }
 
 .toggle-btn {
@@ -97,11 +96,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  
+
   span {
     width: 24px;
     height: 3px;
-    background: v.$color-base;
+    background: v.$color-primario;
     margin: 2px 0;
     border-radius: 2px;
   }
@@ -112,7 +111,7 @@
   flex-direction: column;
   padding: 16px;
   flex: 1;
-  
+
   .sidebar.mobile & {
     position: fixed;
     top: v.$mobile-header-height;
@@ -122,7 +121,7 @@
     background: v.$color-gris;
     transition: transform v.$transition-duration ease;
     z-index: 1000;
-    
+
     &.collapsed {
       transform: translateX(-100%);
     }
@@ -134,36 +133,36 @@
   align-items: center;
   padding: 12px 16px;
   margin-bottom: 4px;
-  color: v.$color-base;
+  color: v.$color-gris-muy-light;
   font-family: v.$font-primary, sans-serif;
   font-size: 16px;
   text-decoration: none;
   border-radius: v.$border-radius * 2;
   transition: background 0.2s, color 0.2s;
-  
+
   &:hover,
   &.active {
-    background: v.$color-contraste;
-    color: v.$color-secundario;
+    background: v.$color-primario-light;
+    color: v.$color-gris-dark;
   }
-  
+
   &.logout {
     margin-top: auto;
     margin-bottom: 24px;
     font-weight: bold;
   }
-  
+
   img {
     @extend %icon-style;
     margin-right: 12px;
   }
-  
+
   .sidebar.collapsed:not(.mobile) & {
     justify-content: center;
     img { margin-right: 0; }
     span { display: none; }
   }
-  
+
   .sidebar.mobile & {
     padding: 12px 24px;
   }
