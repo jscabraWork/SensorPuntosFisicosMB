@@ -46,7 +46,10 @@
   &.selected {
     border-color: v.$color-primario-light;
     color: v.$color-negro;
-    background: lighten(v.$color-negro, 10%);
+    background: lighten(v.$color-primario-dark, 10%);
+    .metodo-nombre {
+      color: v.$color-negro;
+    }
   }
 }
 

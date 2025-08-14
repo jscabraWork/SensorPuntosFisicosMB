@@ -16,9 +16,9 @@
 }
 
 .evento-item {
-  background: v.$color-negro;
+  background: v.$color-blanco;
   border-radius: v.$border-radius * 2;
-  border: 2px solid v.$color-primario;
+  border: 1px solid v.$color-negro;
   box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -59,7 +59,7 @@
   font-family: v.$font-secondary;
   font-size: 1.1rem;
   font-weight: 600;
-  color: v.$color-primario;
+  color: v.$color-negro;
   margin: 0 0 v.$spacer-2 0;
   line-height: 1.2;
 }
@@ -77,13 +77,13 @@
 
     .etiqueta {
       font-weight: 600;
-      color: v.$color-primario-light;
+      color: v.$color-negro-soft;
       margin-right: v.$spacer-1;
       white-space: nowrap;
     }
 
     .valor {
-      color: v.$color-gris-light;
+      color: v.$color-negro-soft;
       font-weight: 500;
     }
   }
@@ -98,6 +98,14 @@
     padding: v.$spacer-2 v.$spacer-3;
     border-radius: v.$border-radius;
   }
+}
+
+.dato-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  fill: v.$color-base;
+  flex-shrink: 0;
 }
 
 .evento-url {
