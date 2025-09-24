@@ -1,26 +1,26 @@
 <div class="metodo-pago-modal">
   <h2 class="modal-titulo">Método de Pago</h2>
-  
+
   <div  class="modal-content">
     <div class="metodos-lista">
-      <div 
-        *ngFor="let metodo of metodosPago" 
+      <div
+        *ngFor="let metodo of metodosPago"
         class="metodo-item"
         [class.selected]="metodoSeleccionado?.id === metodo.id"
         (click)="seleccionarMetodo(metodo)">
-        
+
         <div class="metodo-info">
           <span class="metodo-nombre">{{metodo.nombre}}</span>
         </div>
-        
-        <input 
-          type="radio" 
+
+        <input
+          type="radio"
           [checked]="metodoSeleccionado?.id === metodo.id"
           readonly>
       </div>
     </div>
   </div>
-  
+
   <div class="modal-acciones">
     <button class="button-secondary" (click)="cancelar()">
       Cancelar

@@ -7,20 +7,21 @@
   @include m.flex-center; // Contiene display: flex, justify-content: center, align-items: center
   height: 100vh;
   width: 100%;
-  
+
 }
 
 /* Tarjeta de login - equivalente a .contenedor-login */
 .login-card {
   width: 60%;
-  background-color: v.$color-blanco;
+  background-color: v.$color-gris-dark;
   border-radius: v.$border-radius;
+  border: 3px solid #ffd903;
   overflow: hidden;
   @include m.elevation(3);
   @include m.for-tablet-down { // Equivalente a @media (max-width: 870px)
     width: 80%;
   }
-  
+
   @include m.for-mobile-down { // Equivalente a @media (max-width: 520px)
     width: 90%;
   }
@@ -32,15 +33,15 @@
   text-align: center;
 
   .login-title {
-    color: v.$color-base; // Manteniendo color específico del ejemplo
+    color: v.$color-amarillo; // Manteniendo color específico del ejemplo
     font-family: v.$font-secondary;
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
 
   .login-subtitle {
-    font-size: 1.125rem; // 18px
-    color: v.$color-base;
+    font-size: 1.125rem; // 18pxsubmit
+    color: v.$color-amarillo;
     text-align: center;
   }
 }
@@ -49,7 +50,7 @@
 .login-form {
   padding: 0 1rem;
 
-  .form-group { 
+  .form-group {
     margin-bottom: 1.5rem;
 
     .form-input {
@@ -60,7 +61,7 @@
       border-radius: 4px;
       font-family: v.$font-primary;
       box-sizing: border-box;
-    
+
       &.ng-invalid:not(form),
       &.ng-valid:not(form) {
         background-color: #eaeaea;
@@ -91,19 +92,22 @@
   width: 100%;
   padding: 0.75rem;
   margin: 1rem 0;
-  background: linear-gradient(v.$color-base, v.$color-secundario);
-  color: v.$color-blanco;
+  background: linear-gradient(135deg, #ffd903 0%, #e6c503 50%, #ffd903 100%);
+  color: v.$color-negro;
   border-radius: 4px;
   font-family: v.$font-primary;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  
-  
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(209, 180, 18, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.589);
+
+
   &:hover {
     background: linear-gradient(
-      color.adjust(v.$color-base, $lightness: -5%),
-      color.adjust(v.$color-secundario, $lightness: -5%)
+      color.adjust(v.$color-primario-light, $lightness: -5%),
+      color.adjust(v.$color-primario-dark, $lightness: -5%)
     );
   }
 }

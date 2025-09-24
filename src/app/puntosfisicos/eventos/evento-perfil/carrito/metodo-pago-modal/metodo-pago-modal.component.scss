@@ -3,10 +3,11 @@
 .metodo-pago-modal {
   min-width: 350px;
   padding: v.$spacer-4;
+  background-color: v.$color-negro;
 }
 
 .modal-titulo {
-  color: v.$color-base;
+  color: v.$color-primario;
   font-family: v.$font-secondary;
   font-weight: 600;
   margin-bottom: v.$spacer-3;
@@ -28,19 +29,27 @@
   justify-content: space-between;
   align-items: center;
   padding: v.$spacer-3;
-  border: 1px solid v.$color-gris;
+  border: 1px solid v.$color-primario;
   border-radius: v.$border-radius;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   &:hover {
-    border-color: v.$color-base;
-    background: lighten(v.$color-base, 48%);
+    border-color: v.$color-primario-light;
+    color: v.$color-negro;
+    background: lighten(v.$color-primario, 10%);
+     .metodo-nombre {
+      color: v.$color-negro;
+    }
   }
-  
+
   &.selected {
-    border-color: v.$color-base;
-    background: lighten(v.$color-base, 45%);
+    border-color: v.$color-primario-light;
+    color: v.$color-negro;
+    background: lighten(v.$color-primario-dark, 10%);
+    .metodo-nombre {
+      color: v.$color-negro;
+    }
   }
 }
 
@@ -50,7 +59,7 @@
 
 .metodo-nombre {
   font-weight: 600;
-  color: v.$color-base;
+  color: v.$color-gris-light;
   font-size: 0.95rem;
 }
 
@@ -65,25 +74,26 @@ input[type="radio"] {
   justify-content: flex-end;
   gap: v.$spacer-2;
   padding-top: v.$spacer-2;
-  border-top: 1px solid v.$color-gris;
+  border-top: 1px solid v.$color-primario;
 }
 
-.btn-cancelar {
-  color: v.$color-contraste;
-  
+.button-secondary {
+  color: v.$color-negro-soft;
+
   &:hover {
-    background: lighten(v.$color-gris, 3%);
+    background: lighten(v.$color-gris-dark, 3%);
+    color: v.$color-gris-muy-light;
   }
 }
 
 .btn-confirmar {
   background: v.$color-base;
   color: v.$color-blanco;
-  
+
   &:hover:not(:disabled) {
     background: darken(v.$color-base, 10%);
   }
-  
+
   &:disabled {
     background: v.$color-contraste;
     color: v.$color-blanco;

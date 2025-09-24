@@ -14,30 +14,30 @@
   align-items: center;
   margin-bottom: v.$spacer-3;
   padding-bottom: v.$spacer-2;
-  border-bottom: 2px solid v.$color-gris;
+  border-bottom: 2px solid v.$color-negro;
 }
 
 .carrito-titulo {
   font-family: v.$font-secondary;
   font-size: 1.6rem;
   font-weight: 800;
-  color: v.$color-base;
+  color: v.$color-negro;
   margin: 0;
 }
 
 .orden-numero {
-  background: lighten(v.$color-base, 45%);
+  background: lighten(v.$color-negro-soft, 10%);
   padding: v.$spacer-2;
   border-radius: v.$border-radius;
   font-weight: 600;
-  color: v.$color-base;
+  color: v.$color-primario-light;
   font-size: 0.9rem;
 }
 
 // Cards base
-.evento-card, .cliente-card, .localidad-card {
-  background: v.$color-blanco;
-  border: 1px solid v.$color-gris;
+.cliente-card, .localidad-card {
+  background: v.$color-negro;
+  border: 1px solid v.$color-primario-light;
   border-radius: v.$border-radius;
   padding: v.$spacer-4;
   margin-bottom: v.$spacer-4;
@@ -48,7 +48,12 @@
 .evento-card {
   display: flex;
   gap: v.$spacer-3;
-  
+  border: 1px solid v.$color-negro;
+  background: v.$color-blanco;
+  border-radius: v.$border-radius;
+  padding: v.$spacer-4;
+  margin-bottom: v.$spacer-4;
+
   @include m.for-tablet-down {
     flex-direction: column;
   }
@@ -61,8 +66,8 @@
   overflow: hidden;
   flex-shrink: 0;
 
-  img { width: 100%; height: 100%; object-fit: cover; }
-  
+  img { width: 100%; height: 100%; object-fit: fill; }
+
   @include m.for-tablet-down { width: 100%; height: 160px; }
 }
 
@@ -70,7 +75,7 @@
   font-family: v.$font-secondary;
   font-size: 1.3rem;
   font-weight: 700;
-  color: v.$color-base;
+  color: v.$color-negro;
   margin-bottom: v.$spacer-2;
 }
 
@@ -79,18 +84,18 @@
   align-items: center;
   gap: v.$spacer-2;
   margin-bottom: v.$spacer-1;
-  
-  span { color: v.$color-secundario; }
+
+  span { color: v.$color-negro-soft; }
 }
 
-.dato-icon { width: 18px; height: 18px; fill: v.$color-base; }
+.dato-icon { width: 18px; height: 18px; fill: v.$color-gris-muy-light; }
 
 // Cliente y Localidad títulos
 h4 {
   font-family: v.$font-secondary;
   font-size: 1.1rem;
   font-weight: 600;
-  color: v.$color-base;
+  color: v.$color-primario;
   margin-bottom: v.$spacer-2;
 }
 
@@ -101,15 +106,18 @@ h4 {
   gap: v.$spacer-2;
 }
 
+.cliente-titulo{
+  color: v.$color-primario;
+}
 .cliente-dato {
   background: lighten(v.$color-gris, 35%);
-  padding: v.$spacer-1;
+  padding: v.$spacer-2;
   border-radius: v.$border-radius;
 }
 
 .cliente-label {
   font-weight: 600;
-  color: v.$color-base;
+  color: v.$color-negro-soft;
   font-size: 0.8rem;
   text-transform: uppercase;
   display: block;
@@ -123,13 +131,14 @@ h4 {
 
 // Localidad
 .localidad-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: v.$spacer-2; }
-.localidad-nombre { font-weight: 700; color: v.$color-base; }
-.localidad-descripcion { color: v.$color-contraste; font-size: 0.9rem; }
-.cantidad-tickets { color: v.$color-secundario; font-weight: 600; }
+.localidad-nombre { font-weight: 700; color: v.$color-gris-muy-light; }
+.localidad-descripcion { color: v.$color-gris-muy-light; font-size: 0.9rem; }
+.cantidad-tickets { color: v.$color-gris-muy-light; font-weight: 600; }
+.localidad-titulo{color: v.$color-primario;}
 
 // Resumen
 .resumen-card {
-  background: v.$color-contraste;
+  background: v.$color-negro;
   border: 1px solid v.$color-base;
   border-radius: v.$border-radius;
   padding: v.$spacer-3;
@@ -139,10 +148,14 @@ h4 {
 .descripcion-orden {
   margin-bottom: v.$spacer-2;
   p {
-    color: v.$color-secundario;
+    color: v.$color-gris-muy-light;
     font-style: italic;
     margin: 0;
   }
+}
+
+.resumen-titulo{
+  color: v.$color-primario
 }
 
 .resumen-lineas {
@@ -152,14 +165,14 @@ h4 {
 
 .resumen-linea {
   &.total {
-    border-top: 2px solid v.$color-base;
+    border-top: 2px solid v.$color-gris-muy-light;
     font-weight: 700;
   }
-  
+
   td, th {
     padding: v.$spacer-1 0;
     text-align: left;
-    
+
     &:last-child {
       text-align: right;
     }
@@ -178,7 +191,7 @@ h4 {
   border: 0;
 }
 
-.concepto, .valor { color: v.$color-base; }
+.concepto, .valor { color: v.$color-gris-muy-light; }
 .valor { font-weight: 600; }
 
 // Botones
@@ -186,7 +199,7 @@ h4 {
   display: flex;
   gap: v.$spacer-3;
   justify-content: center;
-  
+
   @include m.for-mobile-down { flex-direction: column; }
 }
 
@@ -198,25 +211,25 @@ h4 {
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  
+
   &:disabled { opacity: 0.7; cursor: not-allowed; }
 }
 
 .btn-pagar {
-  background: v.$color-base;
-  color: v.$color-blanco;
+  background: v.$color-primario;
+  color: v.$color-negro;
   border: none;
-  
-  &:hover:not(:disabled) { background: darken(v.$color-base, 10%); }
-  &:disabled { background: v.$color-contraste; }
+
+  &:hover:not(:disabled) { background: darken(v.$color-primario-light, 10%); }
+  &:disabled { background: v.$color-primario-dark; }
 }
 
 .btn-cancelar {
   background: transparent;
-  color: v.$color-base;
-  border: 2px solid v.$color-base;
-  
-  &:hover:not(:disabled) { background: v.$color-base; color: v.$color-blanco; }
+  color: v.$color-negro;
+  border: 2px solid v.$color-negro;
+
+  &:hover:not(:disabled) { background: v.$color-negro-soft; color: v.$color-gris-muy-light; }
 }
 
 // Loading
@@ -233,8 +246,7 @@ h4 {
 
 .spinner {
   width: 40px; height: 40px;
-  border: 4px solid v.$color-gris;
-  border-top: 4px solid v.$color-base;
+  border-top: 4px solid v.$color-primario-dark;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
