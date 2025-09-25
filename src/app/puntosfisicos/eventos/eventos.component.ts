@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Evento } from '../../models/evento.model';
 import { PuntosFisicosDataService } from '../../service/data/puntosfisicos-data.service';
+import { HardcodedAutheticationService } from '../../service/security/hardcoded-authetication.service';
+import { AuthService } from '../../service/security/auth.service';
 
 @Component({
   selector: 'app-eventos',
@@ -21,7 +23,8 @@ export class EventosComponent implements OnInit, OnDestroy {
   constructor(
     private readonly taquillaDataService: PuntosFisicosDataService,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private auth: HardcodedAutheticationService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class EventosComponent implements OnInit, OnDestroy {
 
   private loadEventos(): void {
     this.loading = true;
-    const numeroDocumento: string | null = this.getNumeroDocumentoFromRoute();
+    const numeroDocumento: string | null = this.auth.getCC();
     
     if (!numeroDocumento) {
       console.error('No se encontró el número de documento del promotor en la ruta');
@@ -57,11 +60,7 @@ export class EventosComponent implements OnInit, OnDestroy {
           this.loading = false;
         }
       });
-  }
-
-  private getNumeroDocumentoFromRoute(): string | null {
-    return this.route.parent?.snapshot.paramMap.get('idPunto') || null;
-  }
+    }
 
   getImagenPrincipal(evento: Evento): string | null {
     if (!evento.imagenes || evento.imagenes.length === 0) {
