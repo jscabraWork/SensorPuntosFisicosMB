@@ -90,7 +90,7 @@ export class EventoPerfilComponent extends BaseComponent {
         this.buscandoCliente = false;
       },
       error: (error) => {
-        this.manejarError(error, 'Error al buscar el cliente');
+        this.manejarError(error, 'Cliente no encontrado');
         this.buscandoCliente = false;
       }
     });
