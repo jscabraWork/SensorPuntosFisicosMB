@@ -1,5 +1,8 @@
 const endpoint="https://back.ticketsensor.com"
 
+//const endpoint="http://localhost:8090"
+
+
 export const API_URL_PUNTOSFISICOS= endpoint+"/api/puntosfisicos"
 export const API_URL_PAGOS= endpoint+"/api/pagos"
 export const API_URL_AUTH=endpoint+"/api/security"

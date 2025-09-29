@@ -102,7 +102,7 @@ export class EventoPerfilComponent extends BaseComponent {
     this.correo = '';
   }
 
-  onComprar(event: {localidad: any, cantidad: number}): void {
+  onComprar(event: {localidad: any, tarifa: any, cantidad: number}): void {
     if (!this.clienteSeleccionado) {
       this.mostrarMensaje('Debe seleccionar un cliente antes de realizar la compra');
       return;
@@ -113,17 +113,23 @@ export class EventoPerfilComponent extends BaseComponent {
       return;
     }
 
+    if (!event.tarifa || !event.tarifa.id) {
+      this.mostrarMensaje('Error: No se encontró información de la tarifa');
+      return;
+    }
+
     console.log(event)
 
     this.iniciarCarga();
-    
+
     const localidadId = event.localidad.id;
+    const tarifaId = event.tarifa.id;
     const eventoId = +this.pathVariable!;
     const numeroDocumento = this.clienteSeleccionado.numeroDocumento;
     const cantidad = event.cantidad;
     const taquillaId = this.autenticacionService.getCC()?.toString() || '';
 
-    this.ordenService.crearOrdenNoNumerada(cantidad, localidadId, eventoId, numeroDocumento, taquillaId)
+    this.ordenService.crearOrdenNoNumerada(cantidad, localidadId, eventoId, numeroDocumento, taquillaId, tarifaId)
       .subscribe({
         next: (response) => {
           this.finalizarCarga();

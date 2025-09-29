@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
     this.auth.logout();
     this.usuario.usuario=this.usuario.usuario.trim();
     this.auth.login(this.usuario).subscribe({next:response => {
+    console.log(response)
 
           this.auth.guardarUsuario(response.access_token);
           this.auth.guardarToken(response.access_token);

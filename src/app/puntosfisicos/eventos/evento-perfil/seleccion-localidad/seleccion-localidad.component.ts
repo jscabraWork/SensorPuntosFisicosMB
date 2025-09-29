@@ -10,40 +10,40 @@ import { Dia } from '../../../../models/dia.model';
   styleUrl: './seleccion-localidad.component.scss'
 })
 export class SeleccionLocalidadComponent {
-  
-  @Input() dias: Dia[] = [];
-  @Output() reservar = new EventEmitter<{localidad: any, cantidad: number}>();
-  
-  cantidades: { [key: string]: number } = {}; // Cantidad por cada localidad
 
-  ajustarCantidad(nombreLocalidad: string, cambio: number): void {
-    const cantidadActual = this.cantidades[nombreLocalidad] || 0;
+  @Input() dias: Dia[] = [];
+  @Output() reservar = new EventEmitter<{localidad: any, tarifa: any, cantidad: number}>();
+
+  cantidades: { [key: string]: number } = {}; // Cantidad por cada combinación localidad-tarifa
+
+  ajustarCantidad(key: string, cambio: number): void {
+    const cantidadActual = this.cantidades[key] || 0;
     const nuevaCantidad = cantidadActual + cambio;
-    
+
     if (nuevaCantidad >= 0 && nuevaCantidad <= 7) {
-      // Si se está seleccionando una nueva localidad, limpiar las demás
+      // Si se está seleccionando una nueva localidad-tarifa, limpiar las demás
       if (nuevaCantidad > 0 && cantidadActual === 0) {
         this.cantidades = {};
       }
-      
-      this.cantidades[nombreLocalidad] = nuevaCantidad;
-      
+
+      this.cantidades[key] = nuevaCantidad;
+
       // Si se reduce a 0, eliminar la entrada
       if (nuevaCantidad === 0) {
-        delete this.cantidades[nombreLocalidad];
+        delete this.cantidades[key];
       }
     }
   }
 
-  getCantidad(nombreLocalidad: string): number {
-    return this.cantidades[nombreLocalidad] || 0;
+  getCantidad(key: string): number {
+    return this.cantidades[key] || 0;
   }
 
-  getLocalidadSeleccionada(): any {
-    const nombreSeleccionado = Object.keys(this.cantidades)[0];
-    if (!nombreSeleccionado) return null;
-    
-    return this.getLocalidadesUnicas().find(loc => loc.nombre === nombreSeleccionado);
+  getItemSeleccionado(): any {
+    const keySeleccionado = Object.keys(this.cantidades)[0];
+    if (!keySeleccionado) return null;
+
+    return this.getItemsTarifas().find(item => item.key === keySeleccionado);
   }
 
   getCantidadTotal(): number {
@@ -51,58 +51,61 @@ export class SeleccionLocalidadComponent {
   }
 
   calcularTotalGeneral(): number {
-    const localidadSeleccionada = this.getLocalidadSeleccionada();
-    if (!localidadSeleccionada) return 0;
-    
-    return this.getCantidadTotal() * localidadSeleccionada.precioTotal;
+    const itemSeleccionado = this.getItemSeleccionado();
+    if (!itemSeleccionado) return 0;
+
+    return this.getCantidadTotal() * itemSeleccionado.precioTotal;
   }
 
-  getLocalidadesUnicas(): any[] {
+  getItemsTarifas(): any[] {
+    const itemsMap = new Map();
 
-    const localidadesMap = new Map();
-    
     this.dias.forEach(dia => {
       if (dia.localidades) {
         dia.localidades.forEach(localidad => {
-          if (localidad.tarifa !== null && localidad.tarifa !== undefined) {
-            const key = localidad.nombre;
-            if (!localidadesMap.has(key)) {
-              localidadesMap.set(key, {
-                id: localidad.id,
-                nombre: localidad.nombre,
-                descripcion: localidad.descripcion,
-                dias: [],
-                precioTotal: 0
+          if (localidad.tarifas && localidad.tarifas.length > 0) {
+            localidad.tarifas.forEach(tarifa => {
+              // Crear una key única por cada combinación localidad-tarifa
+              const key = `${localidad.id}-${tarifa.id}`;
+
+              if (!itemsMap.has(key)) {
+                const precioCompleto = tarifa.precio + tarifa.servicio + tarifa.iva;
+                itemsMap.set(key, {
+                  key: key,
+                  localidadId: localidad.id,
+                  localidadNombre: localidad.nombre,
+                  localidadDescripcion: localidad.descripcion,
+                  tarifaId: tarifa.id,
+                  tarifaNombre: tarifa.nombre,
+                  tarifa: tarifa,
+                  dias: [],
+                  precioTotal: precioCompleto
+                });
+              }
+
+              const itemInfo = itemsMap.get(key);
+              itemInfo.dias.push({
+                dia: dia,
+                precio: itemInfo.precioTotal
               });
-            }
-            
-            const localidadInfo = localidadesMap.get(key);
-            const precioCompleto = localidad.tarifa.precio + localidad.tarifa.servicio + localidad.tarifa.iva;
-            
-            localidadInfo.dias.push({
-              dia: dia,
-              precio: precioCompleto,
-              tarifa: localidad.tarifa
             });
-            
-            // El precio total es el mismo sin importar cuántos días (no se suma)
-            localidadInfo.precioTotal = precioCompleto;
           }
         });
       }
     });
-    
-    return Array.from(localidadesMap.values()).sort((a, b) => a.precioTotal - b.precioTotal);
+
+    return Array.from(itemsMap.values()).sort((a, b) => a.precioTotal - b.precioTotal);
   }
 
   onReservar(): void {
     if (this.getCantidadTotal() === 0) {
       return;
     }
-    
-    const localidadSeleccionada = this.getLocalidadSeleccionada();
+
+    const itemSeleccionado = this.getItemSeleccionado();
     this.reservar.emit({
-      localidad: localidadSeleccionada,
+      localidad: { id: itemSeleccionado.localidadId, nombre: itemSeleccionado.localidadNombre },
+      tarifa: itemSeleccionado.tarifa,
       cantidad: this.getCantidadTotal()
     });
   }

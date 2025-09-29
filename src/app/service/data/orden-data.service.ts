@@ -22,13 +22,15 @@ export class OrdenDataService {
   }
 
   // Métodos para órdenes con promotor
-  crearOrdenNoNumerada(cantidad: number, idLocalidad: number, idEvento: number, numeroDocumento: string, taquillaId: string) {
+  crearOrdenNoNumerada(cantidad: number, idLocalidad: number, idEvento: number, numeroDocumento: string, taquillaId: string, tarifaId: number) {
     const params = new HttpParams()
       .set('pCantidad', cantidad.toString())
       .set('pLocalidadId', idLocalidad.toString())
       .set('pEventoId', idEvento.toString())
       .set('pClienteNumeroDocumento', numeroDocumento)
-      .set('pPuntoFisicoId', taquillaId);
+      .set('pPuntoFisicoId', taquillaId)
+      .set('pTarifaId', tarifaId.toString());
+
     return this.http.post<any>(`${this.apiOrdenesTaquilla}/crear-no-numerada`, null, { params });
   }
 

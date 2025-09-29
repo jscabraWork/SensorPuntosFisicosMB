@@ -1,36 +1,37 @@
 <!-- Selección de Localidades -->
 <div class="localidades-section">
-  <h3 class="section-title">Selecciona tu localidad y cantidad</h3>
-  
+  <h3 class="section-title">Selecciona tu localidad, tarifa y cantidad</h3>
+
   <div class="localidades-lista">
-    <div 
-      *ngFor="let localidad of getLocalidadesUnicas()" 
+    <div
+      *ngFor="let item of getItemsTarifas()"
       class="localidad-item"
-      [class.selected]="getCantidad(localidad.nombre) > 0">
-      
+      [class.selected]="getCantidad(item.key) > 0">
+
       <div class="localidad-info">
         <div class="localidad-main">
           <div class="localidad-header">
-            <h4 class="localidad-nombre">{{localidad.nombre}}</h4>
-            <span class="localidad-descripcion">{{localidad.descripcion}} • {{localidad.dias.length}} día(s)</span>
+            <h4 class="localidad-nombre">{{item.localidadNombre}}</h4>
+            <p class="localidad-nombre">{{item.tarifaNombre}}</p>
+            <span class="localidad-descripcion">{{item.localidadDescripcion}} • {{item.dias.length}} día(s)</span>
           </div>
         </div>
         <div class="precio-info">
-          <span class="precio-total">${{localidad.precioTotal | number}}</span>
+          <span class="precio-total">${{item.precioTotal | number}}</span>
         </div>
         <!-- Selector de cantidad por item -->
         <div class="cantidad-selector">
-          <button 
+          <button
             class="btn-cantidad"
-            (click)="ajustarCantidad(localidad.nombre, -1)"
-            [disabled]="getCantidad(localidad.nombre) <= 0">
+            (click)="ajustarCantidad(item.key, -1)"
+            [disabled]="getCantidad(item.key) <= 0">
             -
           </button>
-          <span class="cantidad-display">{{getCantidad(localidad.nombre)}}</span>
-          <button 
+          <span class="cantidad-display">{{getCantidad(item.key)}}</span>
+          <button
             class="btn-cantidad"
-            (click)="ajustarCantidad(localidad.nombre, 1)"
-            [disabled]="getCantidad(localidad.nombre) >= 7 || (getCantidadTotal() > 0 && getCantidad(localidad.nombre) === 0)">
+            (click)="ajustarCantidad(item.key, 1)"
+            [disabled]="getCantidad(item.key) >= 7 || (getCantidadTotal() > 0 && getCantidad(item.key) === 0)">
             +
           </button>
         </div>
@@ -38,7 +39,7 @@
 
       <!-- Detalle de días separado -->
       <div class="dias-detalle">
-        <div class="dia-item" *ngFor="let diaInfo of localidad.dias">
+        <div class="dia-item" *ngFor="let diaInfo of item.dias">
           <span class="dia-fecha">{{diaInfo.dia.fechaInicio | date:'longDate'}}</span>
           <span class="dia-hora">{{diaInfo.dia.horaInicio + " - " + diaInfo.dia.horaFin}}</span>
         </div>
@@ -51,11 +52,11 @@
 <div class="resumen-compra" *ngIf="getCantidadTotal() > 0">
   <div class="resumen-content">
     <div class="resumen-info">
-      <span class="resumen-cantidad">{{getCantidadTotal()}} boleta(s) - {{getLocalidadSeleccionada()?.nombre}} ({{getLocalidadSeleccionada()?.dias.length}} día(s))</span>
+      <span class="resumen-cantidad">{{getCantidadTotal()}} boleta(s) - {{getItemSeleccionado()?.localidadNombre}} - {{getItemSeleccionado()?.tarifaNombre}} ({{getItemSeleccionado()?.dias.length}} día(s))</span>
       <span class="resumen-total">Total: ${{calcularTotalGeneral() | number}}</span>
     </div>
-    <button 
-      class="btn-reservar" 
+    <button
+      class="btn-reservar"
       (click)="onReservar()">
       COMPRAR
     </button>

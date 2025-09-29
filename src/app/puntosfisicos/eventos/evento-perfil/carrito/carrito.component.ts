@@ -50,6 +50,7 @@ export class CarritoComponent extends BaseComponent {
     this.iniciarCarga();
     this.service.getInformacionCarritoDeCompras(+this.pathVariable).subscribe({
       next: (response) => {
+        console.log('Respuesta del carrito:', response);
         if (response) {
           this.handleResponse(response);
         } else {
@@ -140,7 +141,7 @@ export class CarritoComponent extends BaseComponent {
 
   calcularTotalTickets(): number {
     let total = 0;
-    const tarifa = this.localidad?.tarifa;
+    const tarifa = this.orden?.tarifa;
     this.tickets.forEach(ticket => {
       if (tarifa) {
         total += tarifa.precio + tarifa.servicio + tarifa.iva;
